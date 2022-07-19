@@ -4,140 +4,218 @@ import {
   Step,
 } from "code-surfer";
 import { github, vsDark } from "@code-surfer/themes";
+import bookmarksRoutesImage from "./assets/bookmarks-routes.png";
+import glowingLogo from "./assets/glowing.png";
 
-export const theme = vsDark;
+export const theme = github;
 
-# Hello 👋
+<div>
+  <img
+    style={{ width: "600px", borderRadius: "250px" }}
+    src={glowingLogo}
+  />
+</div>
 
-You are using [MDX Deck](https://github.com/jxnblk/mdx-deck) and [Code Surfer](https://codesurfer.pomb.us)
+# Back to the Future
 
 ---
 
-<CodeSurfer>
+## 2008 meets 2022
 
-```js title="This is a title" subtitle="and this a subtitle"
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
+<div
+  style={{
+    display: "grid",
+    gap: "1rem",
+    gridTemplateColumns: "auto auto",
+    marginBottom: "40px",
+  }}
+>
+  <div style={{ textAlign: "right" }}>Old</div>
+  <div>
+    <span>tech</span>niques
+  </div>
+  <div>New</div>
+  <div>
+    <span>tech</span>ologies
+  </div>
+</div>
 
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
+<ul style={{ fontSize: "32px" }}>
+  <li>
+    No more <code>event.prefentDefault()</code> on form
+    submissions.
+  </li>
+  <li>
+    No more spinnerama as you make 5 separate client side
+    requests for data.
+  </li>
+  <li>Heck, no more clientside code if you want.</li>
+</ul>
 
-  if (!sit || ut < 1) {
-    return [];
-  }
+---
 
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
+## Routing
 
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
-
-  return aliqua;
-}
-```
-
-```js
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
-
-function adipiscing(...elit) {
-  if (!elit.sit) {
-    return [];
-  }
-
-  const sed = elit[0];
-  return eiusmod.tempor(sed) ? sed : [sed];
-}
-
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
-
-  if (!sit || ut < 1) {
-    return [];
-  }
-
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
-
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
-
-  return aliqua;
-}
-```
-
-```diff 1[10:14],2[15:19],3[22:27],10:12
-
-```
-
-</CodeSurfer>
+<ul style={{ fontSize: "32px" }}>
+  <li>File based routing</li>
+  <li>Nested routes (w/ nested layouts)</li>
+</ul>
+<div
+  style={{
+    display: "flex",
+    gap: "40px",
+    padding: "40px",
+    marginTop: "40px",
+    fontSize: "24px",
+  }}
+>
+  <table>
+    <thead>
+      <tr>
+        <th>File Path</th>
+        <th>Url Path</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>/routes/bookmarks/index.tsx</td>
+        <td>/bookmarks</td>
+        <td>The list view.</td>
+      </tr>
+      <tr>
+        <td>/routes/bookmarks/new.tsx</td>
+        <td>/bookmarks/new</td>
+        <td>The new form</td>
+      </tr>
+      <tr>
+        <td>/routes/bookmarks/$bookmarkId.tsx</td>
+        <td>/bookmarks/:id</td>
+        <td>
+          The details view
+          <br />
+          Dynamic segment for <code>bookmarkId</code>
+        </td>
+      </tr>
+      <tr>
+        <td>/routes/bookmarks/$bookmarkId.edit.tsx</td>
+        <td>/bookmarks/:id/edit</td>
+        <td>
+          The edit form
+          <br />
+          Nested url without actually nesting the file
+        </td>
+      </tr>
+      <tr>
+        <td>/routes/bookmarks.tsx</td>
+        <td>/bookmarks/*</td>
+        <td>
+          A "Layout" route. <br />
+          Wraps all bookmarks child routes.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <img
+      style={{ width: "500px" }}
+      src={bookmarksRoutesImage}
+    />
+  </div>
+</div>
 
 ---
 
 <CodeSurferColumns themes={[vsDark, github]}>
 
-<Step>
+<Step title='Basic List view'>
 
-```js
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
+```js subtitle='Classic react'
+export default BookmarksView = () => {
+  const bookmarks = [];
+
+  return (
+    <div>
+      <h2>Bookmarks</h2>ß
+      <ul>
+        {bookmarks.map((bookmark) => (
+          <li key={bookmark.id}>
+            <a href={bookmark.url}>{bookmark.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 ```
 
-```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
+```js subtitle='Remix'
+export default BookmarksView = () => {
+  const bookmarks = [];
+
+  return (
+    <div>
+      <h2>Bookmarks</h2>
+      <ul>
+        {bookmarks.map((bookmark) => (
+          <li key={bookmark.id}>
+            <a href={bookmark.url}>{bookmark.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 ```
 
 </Step>
 
-<Step>
+<Step  title="List View w/ Data Fetching">
 
-```js
-const lorem = (ipsum, dolor, sit) => {
-  const amet = dolor - ipsum;
-  return consectetur.adipiscing(
-    {
-      elit: sed.eiusmod(sit - dolor) / amet + 2,
-    },
-    (tempor, incididunt) => ipsum + amet * incididunt
+```js subtitle='Classic react'
+export default BookmarksView = () => {
+  const [bookmarks, setBookmarks] = useState([]);
+  useEffect(() => {
+    fetch("/api/bookmarks")
+      .then((res) => res.json())
+      .then((data) => setBookmarks(data));
+  }, []);
+
+  return (
+    <div>
+      <h2>Bookmarks</h2>
+      <ul>
+        {bookmarks.map((bookmark) => (
+          <li key={bookmark.id}>
+            <a href={bookmark.url}>{bookmark.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
-
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
 ```
 
-```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
+```js subtitle='Remix'
+// This executes ONLY serverside
+export const loader = () => {
+  return fetch("/api/bookmarks");
+};
 
-const sed = (eiusmod, tempor, incididunt) => {
-  const ut = tempor - eiusmod;
-  return labore.et(
-    {
-      amet: dolore.magna(incididunt - tempor) / ut + 2,
-    },
-    (aliqua, elit) => eiusmod + ut * elit
+export default BookmarksView = () => {
+  const bookmarks = useLoaderData();
+
+  return (
+    <div>
+      <h2>Bookmarks</h2>
+      <ul>
+        {bookmarks.map((bookmark) => (
+          <li key={bookmark.id}>
+            <a href={bookmark.url}>{bookmark.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 ```
@@ -148,5 +226,643 @@ const sed = (eiusmod, tempor, incididunt) => {
 
 ---
 
-docs:  
-[codesurfer.pomb.us](https://codesurfer.pomb.us)
+<CodeSurferColumns themes={[vsDark, github]}>
+
+<Step  title="Happy Path Data Fetching">
+
+```js subtitle='Classic react'
+export default BookmarksView = () => {
+  const [bookmarks, setBookmarks] = useState([]);
+  useEffect(() => {
+    fetch("/api/bookmarks")
+      .then((res) => res.json())
+      .then((data) => setBookmarks(data));
+  }, []);
+
+  return (
+    <div>
+      <h2>Bookmarks</h2>
+      <ul>
+        {bookmarks.map((bookmark) => (
+          <li key={bookmark.id}>
+            <a href={bookmark.url}>{bookmark.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+```
+
+```js subtitle='Remix'
+export const loader = () => {
+  return fetch("/api/bookmarks");
+};
+
+export default BookmarksView = () => {
+  const bookmarks = useLoaderData();
+
+  return (
+    <div>
+      <h2>Bookmarks</h2>
+      <ul>
+        {bookmarks.map((bookmark) => (
+          <li key={bookmark.id}>
+            <a href={bookmark.url}>{bookmark.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+```
+
+</Step>
+
+<Step  title="Data Fetching w/ Loading State and Errors">
+
+```js subtitle='Classic react'
+//
+// Add state to track isLoading and Errors
+export default BookmarksView = () => {
+  const [bookmarks, setBookmarks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch("/api/bookmarks")
+      .then((res) => res.json())
+      .then((data) => setBookmarks(data))
+      .catch((err) => setError(err.message))
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  return (
+    <div>
+      <h2>Bookmarks</h2>
+      {isLoading && <div>Loading...</div>}
+      {error && !isLoading && <div>Error: {error}</div>}
+      {!error && !isLoading && (
+        <ul>
+          {bookmarks.map((bookmark) => (
+            <li key={bookmark.id}>
+              <a href={bookmark.url}>{bookmark.title}</a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+```
+
+```js subtitle='Remix'
+// We don't have to deal with a loading state
+export const loader = () => {
+  return fetch("/api/bookmarks");
+};
+
+export default BookmarksView = () => {
+  const bookmarks = useLoaderData();
+
+  return (
+    <div>
+      <h2>Bookmarks</h2>
+      <ul>
+        {bookmarks.map((bookmark) => (
+          <li key={bookmark.id}>
+            <a href={bookmark.url}>{bookmark.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export const ErrorBoundary = ({ error }) => (
+  <div>Error:{error.message}</div>
+);
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[vsDark, github]}>
+
+<Step title='Basic Edit Form'>
+
+```js subtitle='Classic React'
+export default function BookmarkForm() {
+  return (
+    <form>
+      <label>
+        Title
+        <input name="title" />
+      </label>
+      <label>
+        URL
+        <input name="url" />
+      </label>
+      <label>
+        Description
+        <textarea name="description" />
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+```js subtitle='Remix'
+export default function BookmarkForm() {
+  return (
+    <form>
+      <label>
+        Title
+        <input name="title" />
+      </label>
+      <label>
+        URL
+        <input name="url" />
+      </label>
+      <label>
+        Description
+        <textarea name="description" />
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+</Step>
+
+<Step title='Fetching data (initial form values)'>
+
+```jsx subtitle="Classic React"
+export default function BookmarkForm() {
+  let { bookmarkId } = useParams();
+  let [formValues, setFormValues] = useState(null);
+
+  // Fetch the form values for the item we are editing
+  useEffect(() => {
+    if (bookmarkId) {
+      bookmarksApi
+        .getById(bookmarkId)
+        .then((data) => setFormValues(data));
+        .catch(err => {
+          // TODO: Gracefully handle error
+          console.error("Fetch failed", err)
+        })
+    }
+  }, [bookmarkId]);
+
+  // To avoid a blip, show a spinner until initial values are loaded
+  // Until we gracefully handle errors, the user will see an infiinite spinner
+  if (!formValues) return <Loading />;
+
+  return (
+    <form>
+      <label>
+        Title
+        <input name="title" />
+      </label>
+      <label>
+        URL
+        <input name="url" />
+      </label>
+      <label>
+        Description
+        <textarea name="description" />
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+```js subtitle='Remix'
+// This executes serverside
+export const loader = ({ params }) => {
+  let bookmark = bookmarkService.get(params.bookmarkId);
+  return { bookmark };
+};
+
+// This executes serverside for SSR and clientside once hydrated
+// No need to handle a loading or error state.
+// This component will only render after/if the loader succeeds
+export default function BookmarkForm() {
+  let { bookmark } = useLoaderData();
+  return (
+    <form>
+      <label>
+        Title
+        <input name="title" />
+      </label>
+      <label>
+        URL
+        <input name="url" />
+      </label>
+      <label>
+        Description
+        <textarea name="description" />
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[vsDark, github]}>
+
+<Step title='Form initialized with fetched data'>
+
+```jsx subtitle="Classic React"
+//
+//
+export default function BookmarkForm() {
+  let { bookmarkId } = useParams();
+  // Track form values with component state
+  let [formValues, setFormValues] = useState(null);
+
+  // Fetch the form values for the item we are editing
+  useEffect(() => {
+    if (bookmarkId) {
+      bookmarksApi
+        .getById(bookmarkId)
+        .then((data) => setFormValues(data));
+    }
+  }, [bookmarkId]);
+
+  // To avoid a blip, show a spinner until initial values are loaded
+  if (!formValues) return <Loading />;
+
+  return (
+    <form>
+      <label>
+        Title
+        <input name="title" value={formValues.title} />
+      </label>
+      <label>
+        URL
+        <input name="url" value={formValues.url} />
+      </label>
+      <label>
+        Description
+        <textarea
+          name="description"
+          value={formValues.description}
+        />
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+```js subtitle='Remix'
+//
+export const loader = ({ params }) => {
+  let bookmark = bookmarkService.get(params.bookmarkId);
+  return { bookmark };
+};
+
+export default function BookmarkForm() {
+  let { bookmark } = useLoaderData();
+
+  return (
+    <form>
+      <label>
+        Title
+        <input name="title" defaultValue={bookmark.title} />
+      </label>
+      <label>
+        URL
+        <input name="url" defaultValue={bookmark.url} />
+      </label>
+      <label>
+        Description
+        <textarea
+          name="description"
+          defaultValue={bookmark.description}
+        />
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+</Step>
+
+<Step title='Form submission'>
+
+```jsx subtitle="Classic React"
+export default function BookmarkForm() {
+  let { bookmarkId } = useParams();
+  let [formValues, setFormValues] = useState(null);
+
+  // Fetch the form values for the item we are editing
+  useEffect(() => {
+    if (bookmarkId) {
+      bookmarksApi
+        .getById(bookmarkId)
+        .then((data) => setFormValues(data));
+    }
+  }, [bookmarkId]);
+
+  // To avoid a blip, show a spinner until initial values are loaded
+  if (!formValues) return <Loading />;
+
+  //
+
+  const updateFormValue = (key, value) => {
+    setFormValues({ ...formValues, [key]: value });
+  };
+
+  // This is clientside code
+  const handleSubmit = async (e) => {
+    // make sure the page doesn't refresh
+    e.preventDefault();
+    let result = await bookmarksApi.save(formValues);
+    // Navigate to the display/details view of the saved item
+    navigate(`/bookmarks/${result.id}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Title
+        <input
+          name="title"
+          value={formValues.title}
+          onChange={(e) =>
+            updateFormValue("title", e.currentTarget.value)
+          }
+        />
+      </label>
+      <label>
+        URL
+        <input
+          name="url"
+          value={formValues.url}
+          onChange={(e) =>
+            updateFormValue("url", e.currentTarget.value)
+          }
+        />
+      </label>
+      <label>
+        Description
+        <textarea
+          name="description"
+          value={formValues.description}
+          onChange={(e) =>
+            updateFormValue(
+              "description",
+              e.currentTarget.value
+            )
+          }
+        />
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+```js subtitle='Remix'
+export const loader = ({ params }) => {
+  let bookmark = bookmarkService.get(params.bookmarkId);
+  return { bookmark };
+};
+
+// This is serverside code
+export const action = async ({ request }) => {
+  let formData = await request.formData();
+  let result = await bookmarkService.save(formData);
+  // Navigate to the display/details view of the saved item
+  return redirect(`/bookmarks/${result.id}`);
+};
+
+export default function BookmarkForm() {
+  let { bookmark } = useLoaderData();
+
+  return (
+    <form method="post">
+      <label>
+        Title
+        <input name="title" defaultValue={bookmark.title} />
+      </label>
+      <label>
+        URL
+        <input name="url" defaultValue={bookmark.url} />
+      </label>
+      <label>
+        Description
+        <textarea
+          name="description"
+          defaultValue={bookmark.description}
+        />
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns themes={[vsDark, github]}>
+
+<Step title='Full form code'>
+
+```jsx subtitle="Classic React"
+//
+//
+export default function BookmarkForm() {
+  let [formValues, setFormValues] = useState(null);
+  let { bookmarkId } = useParams();
+
+  // Fetch the form values for the item we are editing
+  useEffect(() => {
+    if (bookmarkId) {
+      bookmarksApi
+        .getById(bookmarkId)
+        .then((data) => setFormValues(data));
+    }
+  }, [bookmarkId]);
+
+  // To avoid a blip, show a spinner until initial values are loaded
+  if (!formValues) return <Loading />;
+
+  const updateFormValue = (key, value) => {
+    setFormValues({ ...formValues, [key]: value });
+  };
+
+  // This is clientside code
+  const handleSubmit = async (e) => {
+    // make sure the page doesn't refresh
+    e.preventDefault();
+    let result = await bookmarksApi.save(formValues);
+    // Navigate to the display/details view of the saved item
+    navigate(`/bookmarks/${result.id}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Title
+        <input
+          name="title"
+          value={formValues.title}
+          onChange={(e) =>
+            updateFormValue("title", e.currentTarget.value)
+          }
+        />
+      </label>
+      <label>
+        URL
+        <input
+          name="url"
+          value={formValues.url}
+          onChange={(e) =>
+            updateFormValue("url", e.currentTarget.value)
+          }
+        />
+      </label>
+      <label>
+        Description
+        <textarea
+          name="description"
+          value={formValues.description}
+          onChange={(e) =>
+            updateFormValue(
+              "description",
+              e.currentTarget.value
+            )
+          }
+        />
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+```js subtitle='Remix'
+// This is serverside code
+export const loader = ({ params }) => {
+  let bookmark = bookmarkService.get(params.bookmarkId);
+  return { bookmark };
+};
+
+export const action = async ({ request }) => {
+  let formData = await request.formData();
+  let result = await bookmarkService.save(formData);
+  // Navigate to the display/details view of the saved item
+  return redirect(`/bookmarks/${result.id}`);
+};
+
+export default function BookmarkForm() {
+  let { bookmark } = useLoaderData();
+
+  return (
+    <form method="post">
+      <label>
+        Title
+        <input name="title" defaultValue={bookmark.title} />
+      </label>
+      <label>
+        URL
+        <input name="url" defaultValue={bookmark.url} />
+      </label>
+      <label>
+        Description
+        <textarea
+          name="description"
+          defaultValue={bookmark.description}
+        />
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+## Auto Revalidating Loaders
+
+- Anytime you invoke an `action`, Remix will automatically refetch any loaders.
+- Example: MasterDetail layout
+  - List view on the left and a Details Pane/Form on the right
+  - List view will automatically refresh when you add a new item.
+
+---
+
+## SSR w/ Hydration & Code Splitting
+
+<div style={{ padding: "10vw"}}>
+
+- Has become table stakes for a Metaframeworks (like Next.js)
+  - REALLY hard to DIY
+  - Compared to Next.js, Remix's nested routing yields granular/smaller bundles.
+- Remix’s push to embrace progressive enhancement means that the app can work IMMEDIATELY, even before the hydration has completed.
+
+</div>
+
+---
+
+## Thinking in Remix
+
+#### An "Insta-Search" page - Shows results as you type in a textbox.
+
+<div style={{ padding: "20px", fontSize: "22px"}}>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Tracking Input Text</th>
+      <th>Fetching Search Results</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Classic React</b></td>
+      <td>Component state - <code>useState</code></td>
+      <td>
+        <div>Fetch inside a <code>useEffect</code> that fires anytime the component state changes.<br/> Watch out for race conditions though! Debounce?</div>
+        <p>Or maybe you're using redux and you do the whole Redux ceremony <br/> (actions, action  creators, reducers, thunks etc…)</p>
+      </td>
+    </tr>
+    <tr>
+      <td><b>Remix</b></td>
+      <td>Url state (querystring)</td>
+      <td>Use the `loader` to fetch the results based on a query string parameter. <br/>Remix will automatically handle race conditions (if the previous request <br/>is cancelled because another character was typed).</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+---
+
+# The End

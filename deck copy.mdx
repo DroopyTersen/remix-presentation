@@ -1,0 +1,358 @@
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from "code-surfer";
+import { github, vsDark } from "@code-surfer/themes";
+export const theme = github;
+
+# Remix
+
+## Back to the Future
+
+---
+
+<CodeSurfer>
+```tsx
+export default function BookmarkForm() {
+  return (
+    <div>
+      <form>
+        <label>
+          Title
+          <input name="title" />
+        </label>
+        <label>
+          URL
+          <input name="url" />
+        </label>
+        <label>
+          Description
+          <textarea name="description" />
+        </label>
+        <button type="submit">Save</button>
+      </form>
+    </div>
+  );
+}
+```
+
+```tsx
+export default function BookmarkForm() {
+  let { bookmarkId } = useParams();
+  let [formValues, setFormValues] =
+    useState<BookmarkFormValues>(null);
+
+  // == Fetch the data ==
+  useEffect(() => {
+    // Can't have an async fn directly in an effect, so wrap it
+    let doAsync = async () => {
+      // bookmarksApi is a function that makes a fetch requests to the API
+      // GET request to the API to hydrate the data for the item being edited
+      let data = await bookmarksApi.fetchBookmarkById(
+        bookmarkId
+      );
+      // TODO: handle component has already unmounted or the bookmark id changed
+      if (data) setFormValues(data);
+      else {
+        // TODO: handle this 404 situation
+      }
+    };
+    // Only call the async function if
+    if (bookmarkId) {
+      doAsync();
+    }
+    // let bookmarkFormValues = await crea
+  }, [bookmarkId]);
+
+  // == Track form values in state ==
+  // Helper to update invidiual fields on the
+  // formValues we are tracking in component state
+  const updateFormValue = (key, value) => {
+    setFormValues({ ...formValues, [key]: value });
+  };
+
+  return (
+    <div>
+      <form>
+        <label>
+          Title
+          <input
+            name="title"
+            value={formValues.title}
+            onChange={(e) =>
+              updateFormValue(
+                "title",
+                e.currentTarget.value
+              )
+            }
+          />
+        </label>
+        <label>
+          URL
+          <input
+            name="url"
+            value={formValues.url}
+            onChange={(e) =>
+              updateFormValue("url", e.currentTarget.value)
+            }
+          />
+        </label>
+        <label>
+          Description
+          <textarea
+            name="description"
+            value={formValues.description}
+            onChange={(e) =>
+              updateFormValue(
+                "description",
+                e.currentTarget.value
+              )
+            }
+          />
+        </label>
+        <button type="submit">Save</button>
+      </form>
+    </div>
+  );
+}
+```
+
+```tsx
+export default function BookmarkForm() {
+  let { bookmarkId } = useParams();
+  let [formValues, setFormValues] =
+    useState<BookmarkFormValues>(null);
+  let navigate = useNavigate();
+
+  // == Fetch the data ==
+  useEffect(() => {
+    // Can't have an async fn directly in an effect, so wrap it
+    let doAsync = async () => {
+      // bookmarksApi is a function that makes a fetch requests to the API
+      // GET request to the API to hydrate the data for the item being edited
+      let data = await bookmarksApi.fetchBookmarkById(
+        bookmarkId
+      );
+      // TODO: handle component has already unmounted or the bookmark id changed
+      if (data) setFormValues(data);
+      else {
+        // TODO: handle this 404 situation
+      }
+    };
+    // Only call the async function if
+    if (bookmarkId) {
+      doAsync();
+    }
+    // let bookmarkFormValues = await crea
+  }, [bookmarkId]);
+
+  // == Track form values in state ==
+  // Helper to update invidiual fields on the
+  // formValues we are tracking in component state
+  const updateFormValue = (key, value) => {
+    setFormValues({ ...formValues, [key]: value });
+  };
+
+  // == Handle form submission ==
+  const handleSubmit = async (e) => {
+    // make sure the page doesn't refresh
+    e.preventDefault();
+    // POST to the API to save the form values
+    let result = await bookmarksApi.save(formValues);
+    // Navigate to the display/details view of the saved item
+    if (result?.id) {
+      navigate(`/bookmarks/${result.id}`);
+    } else {
+      // TODO: Handle error on save
+    }
+  };
+
+  if (!formValues) return <Loading />;
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Title
+          <input
+            name="title"
+            value={formValues.title}
+            onChange={(e) =>
+              updateFormValue(
+                "title",
+                e.currentTarget.value
+              )
+            }
+          />
+        </label>
+        <label>
+          URL
+          <input
+            name="url"
+            value={formValues.url}
+            onChange={(e) =>
+              updateFormValue("url", e.currentTarget.value)
+            }
+          />
+        </label>
+        <label>
+          Description
+          <textarea
+            name="description"
+            value={formValues.description}
+            onChange={(e) =>
+              updateFormValue(
+                "description",
+                e.currentTarget.value
+              )
+            }
+          />
+        </label>
+        <button type="submit">Save</button>
+      </form>
+    </div>
+  );
+}
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js title="This is a title" subtitle="and this a subtitle"
+function lorem(ipsum, dolor = 1) {
+  const sit = ipsum == null ? 0 : ipsum.sit;
+  dolor = sit - amet(dolor);
+  return sit
+    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
+    : [];
+}
+
+function incididunt(ipsum, ut = 1) {
+  ut = labore.et(amet(ut), 0);
+  const sit = ipsum == null ? 0 : ipsum.sit;
+
+  if (!sit || ut < 1) {
+    return [];
+  }
+
+  let dolore = 0;
+  let magna = 0;
+  const aliqua = new eiusmod(labore.ut(sit / ut));
+
+  while (dolore < sit) {
+    aliqua[magna++] = consectetur(
+      ipsum,
+      dolore,
+      (dolore += ut)
+    );
+  }
+
+  return aliqua;
+}
+```
+
+```js
+function lorem(ipsum, dolor = 1) {
+  const sit = ipsum == null ? 0 : ipsum.sit;
+  dolor = sit - amet(dolor);
+  return sit
+    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
+    : [];
+}
+
+function adipiscing(...elit) {
+  if (!elit.sit) {
+    return [];
+  }
+
+  const sed = elit[0];
+  return eiusmod.tempor(sed) ? sed : [sed];
+}
+
+function incididunt(ipsum, ut = 1) {
+  ut = labore.et(amet(ut), 0);
+  const sit = ipsum == null ? 0 : ipsum.sit;
+
+  if (!sit || ut < 1) {
+    return [];
+  }
+
+  let dolore = 0;
+  let magna = 0;
+  const aliqua = new eiusmod(labore.ut(sit / ut));
+
+  while (dolore < sit) {
+    aliqua[magna++] = consectetur(
+      ipsum,
+      dolore,
+      (dolore += ut)
+    );
+  }
+
+  return aliqua;
+}
+```
+
+```diff 1[10:14],2[15:19],3[22:27],10:12
+
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurferColumns themes={[vsDark, github]}>
+
+<Step>
+
+```js
+const magna = (aliqua) => aliqua.ut((enim, ad) => enim, 0);
+```
+
+```js
+const minim = (ad, enim) => dolore.magna(ad / enim);
+```
+
+</Step>
+
+<Step>
+
+```js
+const lorem = (ipsum, dolor, sit) => {
+  const amet = dolor - ipsum;
+  return consectetur.adipiscing(
+    {
+      elit: sed.eiusmod(sit - dolor) / amet + 2,
+    },
+    (tempor, incididunt) => ipsum + amet * incididunt
+  );
+};
+
+const magna = (aliqua) => aliqua.ut((enim, ad) => enim, 0);
+```
+
+```js
+const minim = (ad, enim) => dolore.magna(ad / enim);
+
+const sed = (eiusmod, tempor, incididunt) => {
+  const ut = tempor - eiusmod;
+  return labore.et(
+    {
+      amet: dolore.magna(incididunt - tempor) / ut + 2,
+    },
+    (aliqua, elit) => eiusmod + ut * elit
+  );
+};
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+docs:  
+[codesurfer.pomb.us](https://codesurfer.pomb.us)
