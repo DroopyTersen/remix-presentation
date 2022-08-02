@@ -6,6 +6,8 @@ import {
 import { github, vsDark } from "@code-surfer/themes";
 import bookmarksRoutesImage from "./assets/bookmarks-routes.png";
 import glowingLogo from "./assets/glowing.png";
+import metaframeworkImage from "./assets/metaframeworks-pendulum.png";
+import remixBridgeImage from "./assets/remix-bridge-network.png";
 
 export const theme = github;
 
@@ -20,6 +22,50 @@ export const theme = github;
 
 ---
 
+## What is Remix?
+
+<div
+  style={{
+    display: "flex",
+    flexDirection: "column",
+    gap: "50px",
+    flexWrap: "wrap",
+  }}
+>
+  <img
+    style={{ width: "600px", maxWidth: "90vw" }}
+    src={metaframeworkImage}
+  />
+  <img
+    style={{ width: "600px", maxWidth: "90vw" }}
+    src={remixBridgeImage}
+  />
+</div>
+
+---
+
+## What is Remix?
+
+<div
+  style={{
+    display: "flex",
+    flexDirection: "column",
+    gap: "50px",
+    flexWrap: "wrap",
+  }}
+>
+  <img
+    style={{ width: "600px", maxWidth: "90vw" }}
+    src={metaframeworkImage}
+  />
+  <img
+    style={{ width: "600px", maxWidth: "90vw" }}
+    src={remixBridgeImage}
+  />
+</div>
+
+---
+
 ## 2008 meets 2022
 
 <div
@@ -30,31 +76,37 @@ export const theme = github;
     marginBottom: "40px",
   }}
 >
-  <div style={{ textAlign: "right" }}>Old</div>
+  <em style={{ textAlign: "right" }}>Old</em>
   <div>
     <span>tech</span>niques
   </div>
-  <div>New</div>
+  <em>New</em>
   <div>
     <span>tech</span>ologies
   </div>
 </div>
 
-<ul style={{ fontSize: "32px" }}>
-  <li>
-    No more <code>event.prefentDefault()</code> on form
-    submissions.
-  </li>
-  <li>
-    No more spinnerama as you make 5 separate client side
-    requests for data.
-  </li>
-  <li>Heck, no more clientside code if you want.</li>
-</ul>
+Old school mental model paired with modern DX/UX
 
 ---
 
 ## Routing
+
+- A nested file-based router
+- A url segment lines up to a Route segment
+- A Route segment can
+  - Load data (loader)
+  - Display data (component)
+  - Update data (action)
+  - Handle errors (error boundary)
+
+---
+
+## Routing Demo
+
+---
+
+## Routing Mechanics
 
 <ul style={{ fontSize: "32px" }}>
   <li>File based routing</li>
@@ -136,7 +188,7 @@ export default BookmarksView = () => {
 
   return (
     <div>
-      <h2>Bookmarks</h2>ß
+      <h2>Bookmarks</h2>
       <ul>
         {bookmarks.map((bookmark) => (
           <li key={bookmark.id}>
